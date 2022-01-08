@@ -1,15 +1,13 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import { Nav } from 'react-bootstrap'
 import { Header } from './components/Header';
 import { MintingComponent } from './components/MintingComponent';
-import { RPS } from './components/RPS';
 import { RoadMapComponent } from './components/RoadMapComponent';
 import { TeamComponent } from './components/TeamComponent';
 import { AboutComponent } from './components/AboutComponent';
 import { Footer } from './components/Footer';
-import { Alert } from 'bootstrap';
-
+import PoetryByRobots from './utils/PoetryByRobots.json'
+import { ethers } from 'ethers';
 
 function App() {
 
@@ -52,6 +50,31 @@ function App() {
     }
   }
 
+  const askContractToMintNFT = async () => {
+    const CONTRACT_ADDRESS = '0x67A328Fb0396e0689D06Cc6CDCc0A18bC502AD10';
+
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, PoetryByRobots.abi, signer);
+
+        console.log("Poping wallet for gas...");
+
+        let nftTxn = await connectedContract.electricDream();
+
+        console.log("Mining...")
+        await nftTxn.wait();
+        console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+      } else {
+        console.log("Ethereum object does not exist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 
@@ -68,7 +91,11 @@ function App() {
         style={{
           backgroundColor: "#303952",
         }}>
-        <MintingComponent walletIsConnected={currentAccount} connectWallet={() => connectWallet} />
+        <MintingComponent
+          walletIsConnected={currentAccount}
+          connectWallet={() => connectWallet}
+          mint={() => askContractToMintNFT}
+        />
         <AboutComponent />
         <RoadMapComponent />
         <TeamComponent />

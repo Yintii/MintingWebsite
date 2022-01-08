@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 
+
 export const MintingComponent = (props) => {
 
     const [numToMint, setNumToMint] = useState(1);
@@ -12,7 +13,7 @@ export const MintingComponent = (props) => {
                 <Button
                     variant='warning'
                     className="align-self-center mx-auto"
-                    onCl
+                    onClick={props.connectWallet()}
                 >
                     Connect Wallet
                 </Button>
@@ -22,13 +23,15 @@ export const MintingComponent = (props) => {
 
     const MintingUI = () => {
         return (
-            <Col sm={6} className='text-center p-5'>
+            <Col sm={6} className='text-center'>
 
                 <div className='range-slider'>
-                    <h1>{numToMint}</h1>
+                    <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
+
+                    <h1 className='pt-5'>{numToMint}</h1>
                     <input type="range"
                         min="1"
-                        max="20"
+                        max="5"
                         ref={inputSlide}
                         value={numToMint}
                         onChange={() => {
@@ -39,11 +42,9 @@ export const MintingComponent = (props) => {
                     />
                 </div>
                 <Button
-                    className='my-5'
+                    className='mt-2'
                     variant='warning'
-                    onClick={() => {
-                        alert(`There is a reques for ${numToMint} NFTs`)
-                    }}
+                    onClick={props.mint()}
                 >
                     Generate Dream(s)
                 </Button>
@@ -53,7 +54,7 @@ export const MintingComponent = (props) => {
 
     return (
         <Container id="mint" fluid>
-            <Row className='py-5'>
+            <Row className='py-5 mt-5 px-5'>
                 <Col sm={6} className='p-5 text-center'>
                     <h1>Dream an electric dream of me</h1>
                     <p>
