@@ -1,0 +1,29 @@
+.card{
+    color:black;
+}
+a{
+    text-decoration: none;
+    color:black;
+}
+
+.footer-social{
+    color: white;
+}
+
+#backToTop{
+    color:white;
+    font-size:32px;
+}
+#backToTop:hover{
+    color:purple;
+    font-size:32px;
+}
+.completed{
+    color: #3dc1d3;
+}
+.in-progress{
+    color: #f5cd79;
+}
+.to-do{
+    color:#c44569;
+}
