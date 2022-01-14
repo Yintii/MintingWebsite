@@ -6,15 +6,14 @@ import { RoadMapComponent } from './components/RoadMapComponent';
 import { TeamComponent } from './components/TeamComponent';
 import { AboutComponent } from './components/AboutComponent';
 import { Footer } from './components/Footer';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { AdminDash } from './components/other/AdminDash';
 
 
-
-function App() {
+function App(props) {
 
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x25580e6C9d0Aeae16703B32299dF6Ef6fDfb4AeD";
+  const CONTRACT_ADDRESS = "0xa1512C4DB294CEB1599F115443cf77Fb220F32f5";
 
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window
@@ -91,4 +90,4 @@ function App() {
 }
 
 
-export default App;
+export default withRouter(App);

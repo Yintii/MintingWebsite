@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import React, { useRef, useState, useEffect } from 'react'
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap'
 import PoetryByRobots from '../utils/PoetryByRobots.json'
 import { ethers } from 'ethers';
 
@@ -7,6 +7,7 @@ import { ethers } from 'ethers';
 export const MintingComponent = (props) => {
 
     const [numToMint, setNumToMint] = useState(1);
+    const [isMinting, setIsMinting] = useState(false);
     const price = 0.05;
     const inputSlide = useRef(null)
 
@@ -27,9 +28,11 @@ export const MintingComponent = (props) => {
 
                 let nftTxn = await connectedContract.electricDream(numToMint, { value: ethers.utils.parseEther(cost) });
 
+                setIsMinting(true);
                 console.log("Mining...")
                 await nftTxn.wait();
                 console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+                setIsMinting(false);
             } else {
                 console.log("Ethereum object does not exist");
             }
@@ -50,27 +53,32 @@ export const MintingComponent = (props) => {
                 </Col>
                 {props.walletIsConnected
                     ? <Col sm={6} className='text-center'>
-
                         <div className='range-slider'>
                             <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
+                            {!isMinting
+                                ? <div>
+                                    <h1 className='pt-5'>{numToMint}</h1>
+                                    <input type="range"
+                                        min="1"
+                                        max="5"
+                                        ref={inputSlide}
+                                        value={numToMint}
+                                        onChange={() => {
+                                            setNumToMint(inputSlide.current.value);
+                                        }}
+                                        className='slider'
+                                        id="sliderRange"
+                                    />
+                                </div>
+                                : <Spinner animation='border' role="status"></Spinner>
+                            }
 
-                            <h1 className='pt-5'>{numToMint}</h1>
-                            <input type="range"
-                                min="1"
-                                max="5"
-                                ref={inputSlide}
-                                value={numToMint}
-                                onChange={() => {
-                                    setNumToMint(inputSlide.current.value);
-                                }}
-                                className='slider'
-                                id="sliderRange"
-                            />
                         </div>
                         <Button
                             className='mt-2'
                             variant='warning'
                             onClick={askContractToMintNFT}
+                            disabled={isMinting}
                         >
                             Generate Dream(s)
                         </Button>

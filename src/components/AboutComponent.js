@@ -8,6 +8,7 @@ export const AboutComponent = () => {
             <Row className='p-5 text-center'>
                 <Col sm={8} md={6} className='mx-auto'>
                     <h2>About</h2>
+
                     <p>
                         All poetry and images are generated via AI programatically, based on randomized prompts of various topics centered around a post-apocolyptic world. These poem and digital painting pairs are what we call "Electric Dreams" and are all unique, related only by topic and format.
                     </p>
