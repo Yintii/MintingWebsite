@@ -1,55 +1,41 @@
 import React, { useRef, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
+import PoetryByRobots from '../utils/PoetryByRobots.json'
+import { ethers } from 'ethers';
 
 
 export const MintingComponent = (props) => {
 
     const [numToMint, setNumToMint] = useState(1);
+    const price = 0.05;
     const inputSlide = useRef(null)
 
-    const RenderNotConnected = () => {
-        return (
-            <Col sm={6} className='d-flex'>
-                <Button
-                    variant='warning'
-                    className="align-self-center mx-auto"
-                    onClick={props.connectWallet()}
-                >
-                    Connect Wallet
-                </Button>
-            </Col>
-        )
-    }
+    const askContractToMintNFT = async () => {
+        const CONTRACT_ADDRESS = props.CONTRACT_ADDRESS;
 
-    const MintingUI = () => {
-        return (
-            <Col sm={6} className='text-center'>
+        try {
+            const { ethereum } = window;
 
-                <div className='range-slider'>
-                    <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, PoetryByRobots.abi, signer);
 
-                    <h1 className='pt-5'>{numToMint}</h1>
-                    <input type="range"
-                        min="1"
-                        max="5"
-                        ref={inputSlide}
-                        value={numToMint}
-                        onChange={() => {
-                            setNumToMint(inputSlide.current.value);
-                        }}
-                        className='slider'
-                        id="sliderRange"
-                    />
-                </div>
-                <Button
-                    className='mt-2'
-                    variant='warning'
-                    onClick={props.mint()}
-                >
-                    Generate Dream(s)
-                </Button>
-            </Col>
-        )
+                console.log("Poping wallet for gas...");
+
+                let cost = (numToMint * price).toString();
+
+                let nftTxn = await connectedContract.electricDream(numToMint, { value: ethers.utils.parseEther(cost) });
+
+                console.log("Mining...")
+                await nftTxn.wait();
+                console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+            } else {
+                console.log("Ethereum object does not exist");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -62,7 +48,37 @@ export const MintingComponent = (props) => {
                         The gas that it costs to mint 1, is the same as the cost for 5. Grab as many as you'd like.
                     </p>
                 </Col>
-                {props.walletIsConnected == null ? <RenderNotConnected /> : <MintingUI />}
+                {props.walletIsConnected
+                    ? <Col sm={6} className='text-center'>
+
+                        <div className='range-slider'>
+                            <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
+
+                            <h1 className='pt-5'>{numToMint}</h1>
+                            <input type="range"
+                                min="1"
+                                max="5"
+                                ref={inputSlide}
+                                value={numToMint}
+                                onChange={() => {
+                                    setNumToMint(inputSlide.current.value);
+                                }}
+                                className='slider'
+                                id="sliderRange"
+                            />
+                        </div>
+                        <Button
+                            className='mt-2'
+                            variant='warning'
+                            onClick={askContractToMintNFT}
+                        >
+                            Generate Dream(s)
+                        </Button>
+                    </Col>
+                    : <Col className='d-flex justify-content-center'>
+                        <Button variant='warning' className='align-self-center' onClick={props.connectWallet()}>Connect Wallet</Button>
+                    </Col>
+                }
             </Row>
         </Container>
     )

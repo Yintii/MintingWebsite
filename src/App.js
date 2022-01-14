@@ -6,12 +6,15 @@ import { RoadMapComponent } from './components/RoadMapComponent';
 import { TeamComponent } from './components/TeamComponent';
 import { AboutComponent } from './components/AboutComponent';
 import { Footer } from './components/Footer';
-import PoetryByRobots from './utils/PoetryByRobots.json'
-import { ethers } from 'ethers';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { AdminDash } from './components/other/AdminDash';
+
+
 
 function App() {
 
   const [currentAccount, setCurrentAccount] = useState(null);
+  const CONTRACT_ADDRESS = "0x25580e6C9d0Aeae16703B32299dF6Ef6fDfb4AeD";
 
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window
@@ -50,42 +53,8 @@ function App() {
     }
   }
 
-  const askContractToMintNFT = async () => {
-    const CONTRACT_ADDRESS = '0xa5F3E259817F95072f95520A418C5d99AA50BebA';
-
-    try {
-      const { ethereum } = window;
-
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, PoetryByRobots.abi, signer);
-
-        console.log("Poping wallet for gas...");
-
-        let nftTxn = await connectedContract.electricDream();
-
-        console.log("Mining...")
-        await nftTxn.wait();
-        console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
-      } else {
-        console.log("Ethereum object does not exist");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
-
-  useEffect(() => {
-    checkIfWalletIsConnected()
-  }, [])
-
-
-  return (
-    <div className="App">
-      <Header />
+  const Main = () => {
+    return (
       <main
         className='text-white'
         style={{
@@ -94,16 +63,32 @@ function App() {
         <MintingComponent
           walletIsConnected={currentAccount}
           connectWallet={() => connectWallet}
-          mint={() => askContractToMintNFT}
+          CONTRACT_ADDRESS={CONTRACT_ADDRESS}
         />
         <AboutComponent />
         <RoadMapComponent />
         <TeamComponent />
       </main>
+    );
+  }
+
+  useEffect(() => {
+    checkIfWalletIsConnected()
+  }, [])
+
+  return (
+    <div className="App">
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route exact path="/admin" render={() => <AdminDash user={currentAccount} CONTRACT_ADDRESS={CONTRACT_ADDRESS} />} />
+        <Redirect to="/" />
+      </Switch>
       <Footer />
 
     </div >
   );
 }
+
 
 export default App;
