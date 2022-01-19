@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Row, Tab, Nav } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 
 export const RoadMapComponent = () => {
     return (
@@ -10,12 +10,13 @@ export const RoadMapComponent = () => {
                     <div id="pre-sale" className='in-progress'>
                         <p>Pre-sale</p>
                         <hr />
-                        <ul className='to-do pb-5'>
-                            <li className='in-progress'>
-                                1000 Total <a href="#" style={{ color: "#7387D9" }}>Discord</a> Members
+                        <ul className='in-progress pb-5'>
+                            <li>
+                                1000 <a href="#" style={{ color: "#7387D9" }}>Discord</a> Members
                             </li>
-                            <li className='to-do'>WhiteList spots to community members</li>
-                            <li>Affiliate airdrop announcement</li>
+                            <li>
+                                1000 <a href="#" className='text-info'>Twitter</a> Followers
+                            </li>
                         </ul>
                     </div>
                     <div id="post-sale" class="to-do">

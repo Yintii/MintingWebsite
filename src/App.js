@@ -13,7 +13,7 @@ import { AdminDash } from './components/other/AdminDash';
 function App(props) {
 
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x2dC7dF8eB5183A257390BC80dc45c40e1820C0D4";
+  const CONTRACT_ADDRESS = "0xCC5d555D80dAfB40Ca01050E8D3957034Dd37728";
 
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window

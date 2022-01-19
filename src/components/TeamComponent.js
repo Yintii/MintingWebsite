@@ -1,4 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import * as icons from '@fortawesome/free-brands-svg-icons';
 import { Card, Col, Container, Row, Button } from 'react-bootstrap'
 
 export const TeamComponent = () => {
@@ -10,34 +12,19 @@ export const TeamComponent = () => {
                 <Card className='col-sm-6 my-5' style={{ width: "18rem" }}>
                     <Card.Img variant="top" src="yintii.png" />
                     <Card.Body>
-                        <Card.Title>Kele "Yintii" Heart</Card.Title>
+                        <Card.Title>Yintii</Card.Title>
                         <Card.Subtitle>Developer and Artist 💻 🎨</Card.Subtitle>
                         <Card.Text>
-                            Yintii.eth is a independent UI/UX JavaScript developer.
+                            <hr />
+                            Yintii.eth is an independent UI/UX JavaScript and Solidity developer. Originally an art student before switching into programming, this project is an accumulation of all his interests.
                         </Card.Text>
-                        <Button variant="warning">
-                            <a href="https://keleheart.com" taget="_blank">
-                                Website
+                        <div>
+                            <a href="https://twitter.com/ominous_raspB" target="_blank">
+                                <FontAwesomeIcon icon={icons.faTwitter} />
                             </a>
-                        </Button>
+                        </div>
                     </Card.Body>
                 </Card>
-
-                <Card className='col-sm-6 my-5' style={{ width: "18rem" }}>
-                    <Card.Img variant="top" alt="New Team Member Picture" height="260px" />
-                    <Card.Body>
-                        <Card.Title>_______</Card.Title>
-                        <Card.Subtitle>_______</Card.Subtitle>
-                        <Card.Text>
-                            _________________________________________________
-                        </Card.Text>
-                        <Button variant="warning">
-                            <a href="#">_________</a>
-                        </Button>
-                    </Card.Body>
-                </Card>
-
-
             </Row >
         </Container >
     )

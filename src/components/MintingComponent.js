@@ -14,7 +14,7 @@ export const MintingComponent = (props) => {
     const [successMsg, setSuccessMsg] = useState('');
     const toggleErrorToast = () => setIsError(!isError);
     const toggleSuccessToast = () => setIsSuccess(!isSuccess);
-    const price = 0.05;
+    const price = 0.01;
     const inputSlide = useRef(null)
 
     const askContractToMintNFT = async () => {
@@ -87,58 +87,56 @@ export const MintingComponent = (props) => {
     }
 
     return (
-        <>
-            <Container id="mint" fluid>
-                <Row className='py-5 mt-5 px-5'>
-                    <Col sm={6} className='p-5 text-center'>
-                        <h1>Dream an electric dream of me</h1>
-                        <p>
-                            Utilizing the new ERC721A implementation, we're cutting gas onbulk purcahses.
-                            The gas that it costs to mint 1, is the same as the cost for 5. Grab as many as you'd like.
-                        </p>
-                    </Col>
-                    {props.walletIsConnected
-                        ? <Col sm={6} className='text-center'>
-                            <div className='range-slider'>
-                                <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
-                                {!isMinting
-                                    ? <div>
-                                        <h1 className='pt-5'>{numToMint}</h1>
-                                        <input type="range"
-                                            min="1"
-                                            max="5"
-                                            ref={inputSlide}
-                                            value={numToMint}
-                                            onChange={() => {
-                                                setNumToMint(inputSlide.current.value);
-                                            }}
-                                            className='slider'
-                                            id="sliderRange"
-                                        />
-                                    </div>
-                                    : <Spinner animation='border' role="status"></Spinner>
-                                }
+        <Container id="mint" fluid>
+            <Row className='py-5 mt-5 px-5'>
+                <Col sm={6} className='p-5 text-center'>
+                    <h1>Dream an electric dream of me</h1>
+                    <p>
+                        Utilizing the new ERC721A implementation, we're cutting gas on bulk purchases. This is thanks to the talented people at the Azuki team. Check out their project and give them props for this wonderful gas savior.
+                        <hr />
+                        The gas that it costs to mint 1, is the same as the cost for 5. Grab as many as you'd like. (Limit: 10 per wallet)
+                    </p>
+                </Col>
+                {props.walletIsConnected
+                    ? <Col sm={6} className='text-center'>
+                        <div className='range-slider'>
+                            <h6 className='border rounded p-3'>Connected as: {props.walletIsConnected}</h6>
+                            {!isMinting
+                                ? <div>
+                                    <h1 className='pt-5'>{numToMint}</h1>
+                                    <input type="range"
+                                        min="1"
+                                        max="10"
+                                        ref={inputSlide}
+                                        value={numToMint}
+                                        onChange={() => {
+                                            setNumToMint(inputSlide.current.value);
+                                        }}
+                                        className='slider'
+                                        id="sliderRange"
+                                    />
+                                </div>
+                                : <Spinner animation='border' role="status"></Spinner>
+                            }
 
-                            </div>
-                            <Button
-                                className='mt-2'
-                                variant='warning'
-                                onClick={askContractToMintNFT}
-                                disabled={isMinting}
-                            >
-                                Generate Dream(s)
-                            </Button>
-                        </Col>
-                        : <Col className='d-flex justify-content-center'>
-                            <Button variant='warning' className='align-self-center' onClick={props.connectWallet()}>Connect Wallet</Button>
-                        </Col>
-                    }
-                </Row>
-            </Container >
-            <div id="toasts">
-                <ErrorToast />
-                <SuccessToast />
-            </div>
-        </>
+                        </div>
+                        <Button
+                            className='mt-2'
+                            variant='warning'
+                            onClick={askContractToMintNFT}
+                            disabled={isMinting}
+                        >
+                            Generate Dream(s)
+                        </Button>
+                    </Col>
+                    : <Col className='d-flex justify-content-center'>
+                        <Button variant='warning' className='align-self-center' onClick={props.connectWallet()}>Connect Wallet</Button>
+                    </Col>
+                }
+            </Row>
+            <ErrorToast />
+            <SuccessToast />
+        </Container >
+
     )
 }
