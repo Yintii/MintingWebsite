@@ -10,6 +10,22 @@ a{
     color: white;
 }
 
+.admin-dash{
+    height: 80vh;
+}
+
+#notifs{
+    position: sticky;
+    bottom:0;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+#mint{
+    height: 100vh;
+    padding: 3rem;
+}
+
 #backToTop{
     color:white;
     font-size:32px;

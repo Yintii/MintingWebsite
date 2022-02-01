@@ -9,9 +9,6 @@ export const Footer = () => {
             <Row>
                 <Col sm={12} md={6} className='mx-auto d-flex justify-content-around p-5'>
                     <a className='footer-social' href="#" target='_blank'>
-                        <FontAwesomeIcon icon={icons.faDiscord} />
-                    </a>
-                    <a className='footer-social' href="#" target='_blank'>
                         <FontAwesomeIcon icon={icons.faTwitter} />
                     </a>
                     <a className='footer-social' href="#" target='_blank'>

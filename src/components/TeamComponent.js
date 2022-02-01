@@ -1,15 +1,15 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-brands-svg-icons';
-import { Card, Col, Container, Row, Button } from 'react-bootstrap'
+import { Card, Container, Row } from 'react-bootstrap'
 
 export const TeamComponent = () => {
     return (
         <Container id="team" fluid >
             <Row className='px-5 d-flex justify-content-evenly'>
-                <h3 className='text-center py-5'> Team </h3>
+                <h3 className='text-center py-5'> Creator / Developer </h3>
 
-                <Card className='col-sm-6 my-5' style={{ width: "18rem" }}>
+                <Card className='col-sm-6 mb-5' style={{ width: "18rem" }}>
                     <Card.Img variant="top" src="yintii.png" />
                     <Card.Body>
                         <Card.Title>Yintii</Card.Title>

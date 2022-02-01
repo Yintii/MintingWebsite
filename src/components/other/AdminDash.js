@@ -61,11 +61,11 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
 
     if (user === "0xa0abf54e10e2088256819f1bff7af4f324ca3fda") {
         return (
-            <div className='p-5 m-5'>
+            <div className='p-5 m-5 admin-dash'>
                 <h1>Admin</h1>
                 <Form>
                     <Form.Label>Data URI</Form.Label>
-                    <Form.Control ref={URI_INPUT} onChange={() => setDataURI(URI_INPUT.current.value)} className='w-25' />
+                    <Form.Control ref={URI_INPUT} onChange={() => setDataURI(URI_INPUT.current.value)} className='w-50' />
                     <Button
                         variant="warning"
                         className='mt-2 mb-5'
@@ -86,7 +86,7 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
     }
     else {
         return (
-            <div className="p-5 m-5">
+            <div className="p-5 m-5 admin-dash">
                 <h1>Ooops!</h1>
                 <p>Nothing to see here.</p>
                 <Link to="/"> Back home</Link>
