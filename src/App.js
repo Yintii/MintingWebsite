@@ -36,7 +36,7 @@ function App(props) {
 
   const inputSlide = useRef(null)
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x98C14533eB7beA14424d3e76A8C5d0A8b79b73Ff";
+  const CONTRACT_ADDRESS = "0x37b43a5543F91F1d6bfc728F3E54D480c622e444";
 
   //functions
   const checkIfWalletIsConnected = async () => {
@@ -124,31 +124,32 @@ function App(props) {
     }
   }
 
-  // Renderer callback with condition
+
+
+  //renderer for the minting component when the timer is done counting down
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
+      let subString = currentAccount.substr(0, 3) + "..." + currentAccount.substr(38, 42)
       return (
-        <>
-          <div className='range-slider'>
-            <h6 className='border rounded px-5 py-2 w-100'>Connected as: {currentAccount}</h6>
-            {!isMinting
-              ? <>
-                <h1 className='py-5'>{numToMint}</h1>
-                <input type="range"
-                  min="1"
-                  max="10"
-                  ref={inputSlide}
-                  value={numToMint}
-                  onChange={() => setNumToMint(inputSlide.current.value)}
-                  className='slider'
-                  id="sliderRange"
-                />
-              </>
-              : <Spinner animation='border' role="status"></Spinner>
-            }
+        <div className='text-center d-flex flex-column'>
+          <h6 className='border rounded p-3 mx-5'>Connected as: {subString}</h6>
+          {!isMinting
+            ? <div>
+              <h2 className='py-5'>{numToMint}</h2>
+              <input type="range"
+                min="1"
+                max="20"
+                ref={inputSlide}
+                value={numToMint}
+                step="1"
+                onChange={() => setNumToMint(inputSlide.current.value)}
+              />
+            </div>
+            : <Spinner animation='border' className='align-self-center' role="status"></Spinner>
+          }
 
-          </div>
+
           <Button
             className='mt-2'
             variant='warning'
@@ -158,22 +159,26 @@ function App(props) {
             Generate Dream(s)
           </Button>
 
-          <ProgressBar variant='warning' className='my-3' animated now={(minted * 100) / 5555} />
+          <ProgressBar
+            variant='success'
+            className='my-3 w-75 mx-auto my-5'
+            animated now={(minted * 100) / 5555}
+          />
           {minted} / 5555
-        </>
+        </div>
       )
     } else {
       // Render a countdown
       if (days === 1) {
         return (
-          <p style={{ fontSize: "40px" }}>
+          <p className='count-down'>
             📆 {days} Day <br />
             ⏰ {hours}:{minutes}:{seconds}
           </p>
         )
       } else {
         return (
-          <p style={{ fontSize: "40px" }}>
+          <p className='count-down'>
             📆 {days} Days <br />
             ⏰ {hours}:{minutes}:{seconds}
           </p>
@@ -186,8 +191,8 @@ function App(props) {
   const MintingComponent = () => {
     return (
       <Container id="mint" fluid>
-        <Row className='py-5 mt-5 p-5'>
-          <Col sm={6} className='p-5 text-center'>
+        <Row>
+          <Col md={6} className="px-5 mt-5" >
             <h1>Dream an electric dream of me</h1>
             <p>
               A random prompt is generated to be fed to two seperate machine learning models, one for word generation, the other for image generation. These two pieces come together into an electric dream, a beautiful fusion of poetry and digital artwork.
@@ -197,9 +202,9 @@ function App(props) {
             </p>
           </Col>
           {currentAccount
-            ? <Col sm={6} className='text-center my-auto'>
+            ? <Col md={3} className="mx-auto my-5 text-center" >
               <Countdown
-                date={new Date('February 8, 2022 13:00:00')}
+                date={new Date('February 1, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>

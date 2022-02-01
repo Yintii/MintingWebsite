@@ -23,8 +23,10 @@ a{
 
 #mint{
     height: 100vh;
-    padding: 3rem;
+    display: flex;
+    padding-top: 10rem
 }
+
 
 #backToTop{
     color:white;
@@ -37,9 +39,26 @@ a{
 .completed{
     color: #3dc1d3;
 }
+.count-down{
+    font-size: 40px;
+    border: 1px solid white;
+    border-radius: 25px;
+    padding: 1rem;
+
+}
 .in-progress{
     color: #f5cd79;
 }
 .to-do{
     color:#c44569;
+}
+
+@media only screen and (max-width: 800px) {
+  #team {
+    border-top: 1px solid white;
+    margin-top: 15rem;
+  }
+  #mint{
+      padding-top: 5rem;
+  }
 }
