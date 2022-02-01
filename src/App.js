@@ -9,8 +9,6 @@ import { AdminDash } from './components/other/AdminDash';
 import { Button, Col, Container, Row, Spinner, ToastContainer, Toast, ProgressBar } from 'react-bootstrap'
 import PoetryByRobots from './utils/PoetryByRobots.json'
 import { ethers } from 'ethers';
-import { SupportedAlgorithm } from 'ethers/lib/utils';
-
 
 function App(props) {
 
@@ -159,7 +157,8 @@ function App(props) {
           >
             Generate Dream(s)
           </Button>
-          <ProgressBar variant='warning' className='my-3' animated now={minted} />
+
+          <ProgressBar variant='warning' className='my-3' animated now={(minted * 100) / 5555} />
           {minted} / 5555
         </>
       )
@@ -200,7 +199,7 @@ function App(props) {
           {currentAccount
             ? <Col sm={6} className='text-center my-auto'>
               <Countdown
-                date={new Date('February 8, 2022 13:00:00')}
+                date={new Date('Janurary 21, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>
@@ -249,11 +248,9 @@ function App(props) {
 
   const Main = () => {
     return (
-      <main
-        className='text-white'
-        style={{
-          backgroundColor: "#303952",
-        }}>
+      <main className='text-white' style={{
+        backgroundColor: "#303952",
+      }}>
         <MintingComponent />
         <TeamComponent />
         <Toasts />
@@ -264,7 +261,7 @@ function App(props) {
   useEffect(() => {
     checkIfWalletIsConnected();
     checkMintedCount();
-  }, [])
+  }, [minted])
 
 
   return (
