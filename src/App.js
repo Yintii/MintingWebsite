@@ -199,7 +199,7 @@ function App(props) {
           {currentAccount
             ? <Col sm={6} className='text-center my-auto'>
               <Countdown
-                date={new Date('Janurary 21, 2022 13:00:00')}
+                date={new Date('February 8, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>
