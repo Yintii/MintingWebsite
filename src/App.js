@@ -9,13 +9,14 @@ import { AdminDash } from './components/other/AdminDash';
 import { Button, Col, Container, Row, Spinner, ToastContainer, Toast, ProgressBar } from 'react-bootstrap'
 import PoetryByRobots from './utils/PoetryByRobots.json'
 import { ethers } from 'ethers';
-import { render } from '@testing-library/react';
+import { SupportedAlgorithm } from 'ethers/lib/utils';
 
 
 function App(props) {
 
   //how many the user is planing to mint
   const [numToMint, setNumToMint] = useState(1);
+  const [minted, setMinted] = useState(0);
 
   //for loading states and toasts
   const [isMinting, setIsMinting] = useState(false);
@@ -37,7 +38,7 @@ function App(props) {
 
   const inputSlide = useRef(null)
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x06dfaE6e7f1879D4f9c769E43EE0c5cD368fD72D";
+  const CONTRACT_ADDRESS = "0x98C14533eB7beA14424d3e76A8C5d0A8b79b73Ff";
 
   //functions
   const checkIfWalletIsConnected = async () => {
@@ -105,6 +106,25 @@ function App(props) {
       toggleErrorToast()
     }
   }
+  const checkMintedCount = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, PoetryByRobots.abi, signer);
+
+        let supply = await connectedContract.totalSupply();
+
+        console.log("Supply: ", supply.toNumber());
+        setMinted(supply.toNumber());
+
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   // Renderer callback with condition
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -139,20 +159,29 @@ function App(props) {
           >
             Generate Dream(s)
           </Button>
-          <ProgressBar variant='warning' className='my-3' animated now={45} />
+          <ProgressBar variant='warning' className='my-3' animated now={minted} />
+          {minted} / 5555
         </>
       )
     } else {
       // Render a countdown
-      return (
-        <p>
-          📆 {days} <br />
-          ⏰ {hours}:{minutes}:{seconds}
-        </p>
-      )
+      if (days === 1) {
+        return (
+          <p style={{ fontSize: "40px" }}>
+            📆 {days} Day <br />
+            ⏰ {hours}:{minutes}:{seconds}
+          </p>
+        )
+      } else {
+        return (
+          <p style={{ fontSize: "40px" }}>
+            📆 {days} Days <br />
+            ⏰ {hours}:{minutes}:{seconds}
+          </p>
+        )
+      }
     }
   };
-
 
   //views
   const MintingComponent = () => {
@@ -171,7 +200,7 @@ function App(props) {
           {currentAccount
             ? <Col sm={6} className='text-center my-auto'>
               <Countdown
-                date={new Date('February 8, 2022 12:00:00')}
+                date={new Date('February 8, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>
@@ -234,7 +263,7 @@ function App(props) {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-
+    checkMintedCount();
   }, [])
 
 
