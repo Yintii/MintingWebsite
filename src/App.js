@@ -128,7 +128,9 @@ function App(props) {
 
   //renderer for the minting component when the timer is done counting down
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
-    if (completed) {
+    if (completed && minted === 5555) {
+      return <h1>Sold out!</h1>
+    } else if (completed && minted !== 5555) {
       // Render a completed state
       let subString = currentAccount.substr(0, 3) + "..." + currentAccount.substr(38, 42)
       return (
@@ -204,7 +206,7 @@ function App(props) {
           {currentAccount
             ? <Col md={3} className="mx-auto my-5 text-center" >
               <Countdown
-                date={new Date('February 8, 2022 13:00:00')}
+                date={new Date('February 1, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>
