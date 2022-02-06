@@ -26,7 +26,7 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
 
                 console.log("Setting URI...")
                 await URITxn.wait();
-                console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${URITxn.hash}`)
+                console.log(`Txn mined, see URL: https://etherscan.io/tx/${URITxn.hash}`)
             } else {
                 console.log("Ethereum object does not exist");
             }
@@ -51,7 +51,7 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
 
                 console.log("Withdrawing...")
                 await withdrawTxn.wait();
-                console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${withdrawTxn.hash}`)
+                console.log(`Txn mined, see URL: https://etherscan.io/tx/${withdrawTxn.hash}`)
             } else {
                 console.log("Ethereum object does not exist");
             }
@@ -77,7 +77,7 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
 
                 console.log("Mining...")
                 await nftTxn.wait();
-                console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+                console.log(`Txn mined, see URL: https://etherscan.io/tx/${nftTxn.hash}`)
             } else {
                 console.log("Ethereum object does not exist");
             }

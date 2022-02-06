@@ -36,7 +36,7 @@ function App(props) {
 
   const inputSlide = useRef(null)
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x58f45f09a902aB8Dd33F450F9644a6f5757C297c";
+  const CONTRACT_ADDRESS = "0x9ce01fa85b1e326ca8ec5ade69de0942109e37f8";
 
   //functions
   const checkIfWalletIsConnected = async () => {
@@ -93,7 +93,7 @@ function App(props) {
         setIsMinting(true);
         console.log("Mining...")
         await nftTxn.wait();
-        setSuccessMsg(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+        setSuccessMsg(`Txn mined, see URL: https://etherscan.io/tx/${nftTxn.hash}`)
         setIsMinting(false);
         toggleSuccessToast();
       } else {
@@ -136,6 +136,7 @@ function App(props) {
           step="1"
           onChange={() => setNumToMint(inputSlide.current.value)}
         />
+        0.035Ξ each
       </>
     )
   }
@@ -249,7 +250,7 @@ function App(props) {
               A random prompt is generated to be fed to two seperate machine learning models, one for word generation, the other for image generation. These two pieces come together into an electric dream, a beautiful fusion of poetry and digital artwork.
               <hr />
               This project is experimental and the work of a single developer and artist. Be sure to let them know what you think of the works.<br />
-              (Limit: 20 per wallet)
+              (Limit: 20 per wallet - 0.035Ξ each )
             </p>
           </Col>
           {currentAccount
