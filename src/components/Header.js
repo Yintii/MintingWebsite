@@ -14,7 +14,7 @@ export const Header = (props) => {
                     <Nav className="mx-auto">
                         <Nav.Link href="#mint">Mint</Nav.Link>
                         <Nav.Link href="#team">Creator</Nav.Link>
-                        <Nav.Link href="#" target="_blank">Contract (coming soon)</Nav.Link>
+                        <Nav.Link href="https://etherscan.io/address/0x9ce01fa85b1e326ca8ec5ade69de0942109e37f8" target="_blank">Contract</Nav.Link>
                     </Nav>
                     <Nav className='mx-5'>
                         <Nav.Link href="https://twitter.com/PoetryByRobots" target="_blank">
