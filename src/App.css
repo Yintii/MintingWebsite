@@ -39,13 +39,19 @@ a{
 .completed{
     color: #3dc1d3;
 }
-.count-down{
-    font-size: 40px;
-    border: 1px solid white;
-    border-radius: 25px;
-    padding: 1rem;
 
+table{
+    width: 50%;
+    margin: auto;
 }
+
+th{
+    font-size: 25px;
+    padding: 10px;
+    color:white;
+}
+
+
 .in-progress{
     color: #f5cd79;
 }

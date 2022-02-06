@@ -7,7 +7,9 @@ import { ethers } from 'ethers';
 export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
 
     const URI_INPUT = useRef(null)
+    const devMintAmount = useRef(null);
     const [dataURI, setDataURI] = useState(null);
+    const [numToMint, setNumToMint] = useState(1);
 
     const askContractToSetDataURI = async () => {
         try {
@@ -58,6 +60,32 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
         }
     }
 
+    const askContractToDevMintNFT = async () => {
+
+        try {
+            const { ethereum } = window;
+
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, PoetryByRobots.abi, signer);
+
+                console.log("Poping wallet for gas...");
+
+                let nftTxn = await connectedContract.devDream(numToMint);
+
+
+                console.log("Mining...")
+                await nftTxn.wait();
+                console.log(`Txn mined, see URL: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`)
+            } else {
+                console.log("Ethereum object does not exist");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     if (user === "0xa0abf54e10e2088256819f1bff7af4f324ca3fda") {
         return (
@@ -81,6 +109,18 @@ export const AdminDash = ({ user, CONTRACT_ADDRESS }) => {
                         Withdraw Money
                     </Button>
                 </Form>
+                <div className='d-flex flex-column w-25 mx-auto'>
+                    <h2 className='py-5 text-center'>{numToMint}</h2>
+                    <input type="range"
+                        min="1"
+                        max="20"
+                        ref={devMintAmount}
+                        value={numToMint}
+                        step="1"
+                        onChange={() => setNumToMint(devMintAmount.current.value)}
+                    />
+                    <Button onClick={askContractToDevMintNFT} variant='info'>Mint</Button>
+                </div>
             </div>
         )
     }

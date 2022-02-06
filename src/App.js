@@ -32,11 +32,11 @@ function App(props) {
 
 
   //NFT price
-  const price = 0.01;
+  const price = 0.035;
 
   const inputSlide = useRef(null)
   const [currentAccount, setCurrentAccount] = useState(null);
-  const CONTRACT_ADDRESS = "0x37b43a5543F91F1d6bfc728F3E54D480c622e444";
+  const CONTRACT_ADDRESS = "0x58f45f09a902aB8Dd33F450F9644a6f5757C297c";
 
   //functions
   const checkIfWalletIsConnected = async () => {
@@ -124,7 +124,21 @@ function App(props) {
     }
   }
 
-
+  const InputSlider = () => {
+    return (
+      <>
+        <h2 className='py-5'>{numToMint}</h2>
+        <input type="range"
+          min="1"
+          max="20"
+          ref={inputSlide}
+          value={numToMint}
+          step="1"
+          onChange={() => setNumToMint(inputSlide.current.value)}
+        />
+      </>
+    )
+  }
 
   //renderer for the minting component when the timer is done counting down
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -137,17 +151,7 @@ function App(props) {
         <div className='text-center d-flex flex-column'>
           <h6 className='border rounded p-3 mx-5'>Connected as: {subString}</h6>
           {!isMinting
-            ? <div>
-              <h2 className='py-5'>{numToMint}</h2>
-              <input type="range"
-                min="1"
-                max="20"
-                ref={inputSlide}
-                value={numToMint}
-                step="1"
-                onChange={() => setNumToMint(inputSlide.current.value)}
-              />
-            </div>
+            ? <InputSlider />
             : <Spinner animation='border' className='align-self-center' role="status"></Spinner>
           }
 
@@ -173,17 +177,62 @@ function App(props) {
       // Render a countdown
       if (days === 1) {
         return (
-          <p className='count-down'>
-            📆 {days} Day <br />
-            ⏰ {hours}:{minutes}:{seconds}
-          </p>
+          <>
+            <h1 className='text-center'>Countdown ⏳</h1>
+            <hr />
+            <div className='count-down'>
+              <table>
+                <tr>
+                  <th>day</th>
+                  <th>hours</th>
+                  <th>minutes</th>
+                  <th>seconds</th>
+                </tr>
+                <th>
+                  {days}
+                </th>
+                <th>
+                  {hours}
+                </th>
+                <th>
+                  {minutes}
+                </th>
+                <th>
+                  {seconds}
+                </th>
+              </table>
+            </div>
+          </>
+
         )
       } else {
         return (
-          <p className='count-down'>
-            📆 {days} Days <br />
-            ⏰ {hours}:{minutes}:{seconds}
-          </p>
+          <>
+            <h1 className='text-center'>Countdown ⏳</h1>
+            <hr />
+            <div className='count-down'>
+              <table>
+                <tr>
+                  <th>days</th>
+                  <th>hours</th>
+                  <th>minutes</th>
+                  <th>seconds</th>
+                </tr>
+                <th>
+                  {days}
+                </th>
+                <th>
+                  {hours}
+                </th>
+                <th>
+                  {minutes}
+                </th>
+                <th>
+                  {seconds}
+                </th>
+              </table>
+            </div>
+          </>
         )
       }
     }
