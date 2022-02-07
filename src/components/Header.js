@@ -20,10 +20,10 @@ export const Header = (props) => {
                         <Nav.Link href="https://twitter.com/PoetryByRobots" target="_blank">
                             <FontAwesomeIcon icon={icons.faTwitter} style={{ color: "#1C9AEE" }} />
                         </Nav.Link>
-                        <Nav.Link href="#">
+                        <Nav.Link href="https://opensea.io/collection/poetrybyrobots" target="_blank">
                             <img src="/opensea.png" alt="opensea icon" width="20px" />
                         </Nav.Link>
-                        <Nav.Link href="#">
+                        <Nav.Link href="https://looksrare.org/collections/0x9cE01fa85b1e326CA8ec5aDE69dE0942109e37F8" target="_blank">
                             <img src="/looksrare.png" alt="LooksRare icon" width="20px" />
                         </Nav.Link>
                     </Nav>
