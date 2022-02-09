@@ -153,7 +153,7 @@ function App(props) {
           <h6 className='border rounded p-3 mx-5'>Connected as: {subString}</h6>
           {!isMinting
             ? <InputSlider />
-            : <Spinner animation='border' className='align-self-center' role="status"></Spinner>
+            : <img src="/dreaming.gif" alt="dreaming-many" width="512" height="206" />
           }
 
 
@@ -244,7 +244,7 @@ function App(props) {
     return (
       <Container id="mint" fluid>
         <Row>
-          <Col md={6} className="px-5 mt-5" >
+          <Col lg={4} className="px-5 mt-2" >
             <h1>Dream an electric dream of me</h1>
             <p>
               A random prompt is generated to be fed to two seperate machine learning models, one for word generation, the other for image generation. These two pieces come together into an electric dream, a beautiful fusion of poetry and digital artwork.
@@ -260,7 +260,8 @@ function App(props) {
                 renderer={renderer}
               />
             </Col>
-            : <Col className='d-flex justify-content-center'>
+            : <Col className='d-flex flex-column '>
+              <img className='mx-auto mb-4' src="dream-many.gif" alt="dreaming" width="718" height="309" />
               <Button variant='warning' className='align-self-center' onClick={connectWallet()}>Connect Wallet</Button>
             </Col>
           }
