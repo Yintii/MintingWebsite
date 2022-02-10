@@ -2,11 +2,12 @@ import './App.css';
 import React, { useState, useEffect, useRef } from 'react'
 import Countdown from 'react-countdown';
 import { Header } from './components/Header';
+import { RoadMap } from './components/RoadMap';
 import { TeamComponent } from './components/TeamComponent';
 import { Footer } from './components/Footer';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { AdminDash } from './components/other/AdminDash';
-import { Button, Col, Container, Row, Spinner, ToastContainer, Toast, ProgressBar } from 'react-bootstrap'
+import { Button, Col, Container, Row, ToastContainer, Toast, ProgressBar } from 'react-bootstrap'
 import PoetryByRobots from './utils/PoetryByRobots.json'
 import { ethers } from 'ethers';
 
@@ -149,11 +150,11 @@ function App(props) {
       // Render a completed state
       let subString = currentAccount.substr(0, 3) + "..." + currentAccount.substr(38, 42)
       return (
-        <div className='text-center d-flex flex-column'>
+        <div className='text-center d-flex flex-column w-75 mx-auto'>
           <h6 className='border rounded p-3 mx-5'>Connected as: {subString}</h6>
           {!isMinting
             ? <InputSlider />
-            : <img src="/dreaming.gif" alt="dreaming-many" width="512" height="206" />
+            : <img src="/dreaming.gif" alt="dreaming" width="512" height="206" />
           }
 
 
@@ -239,29 +240,37 @@ function App(props) {
     }
   };
 
+  const GifComponent = () => {
+    return (
+      <Container fluid>
+        <img src="bigDreams.gif" className='w-100' alt="headerbanner" />
+      </Container>
+    )
+  }
+
   //views
   const MintingComponent = () => {
     return (
-      <Container id="mint" fluid>
+      <Container id="mint" className="d-flex flex-column" fluid>
         <Row>
-          <Col lg={4} className="px-5 mt-2" >
+          <Col lg={6} className="p-5 mt-2 mx-auto" >
             <h1>Dream an electric dream of me</h1>
             <p>
-              A random prompt is generated to be fed to two seperate machine learning models, one for word generation, the other for image generation. These two pieces come together into an electric dream, a beautiful fusion of poetry and digital artwork.
+              Poetry By Robots is a AI generative collection utilizing two machine learning models for text and images. Poetry and Art is generated from the perspective of post-apocalyptic automatons who've survived until worlds end.
+
               <hr />
               This project is experimental and the work of a single developer and artist. Be sure to let them know what you think of the works.<br />
               (Limit: 20 per wallet - 0.035Ξ each )
             </p>
           </Col>
           {currentAccount
-            ? <Col md={3} className="mx-auto my-5 text-center" >
+            ? <Col md={6} className="mx-auto my-5 text-center" >
               <Countdown
                 date={new Date('February 8, 2022 13:00:00')}
                 renderer={renderer}
               />
             </Col>
             : <Col className='d-flex flex-column '>
-              <img className='mx-auto mb-4' src="dream-many.gif" alt="dreaming" width="718" height="309" />
               <Button variant='warning' className='align-self-center' onClick={connectWallet()}>Connect Wallet</Button>
             </Col>
           }
@@ -309,7 +318,9 @@ function App(props) {
       <main className='text-white' style={{
         backgroundColor: "#303952",
       }}>
+        <GifComponent />
         <MintingComponent />
+        <RoadMap />
         <TeamComponent />
         <Toasts />
       </main>
