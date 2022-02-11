@@ -58,6 +58,9 @@ th{
 .to-do{
     color:#c44569;
 }
+  #Go-To-Desktop{
+      display:none;
+  }
 
 @media only screen and (max-width: 800px) {
   #team {
@@ -65,6 +68,9 @@ th{
     margin-top: 15rem;
   }
   #mint{
-      padding-top: 5rem;
+      visibility: hidden;
+  }
+  #Go-To-Desktop{
+      display:block
   }
 }

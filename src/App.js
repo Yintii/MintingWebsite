@@ -11,6 +11,11 @@ import { Button, Col, Container, Row, ToastContainer, Toast, ProgressBar } from 
 import PoetryByRobots from './utils/PoetryByRobots.json'
 import { ethers } from 'ethers';
 
+
+
+
+
+
 function App(props) {
 
   //how many the user is planing to mint
@@ -29,8 +34,6 @@ function App(props) {
   //bools to toggle toasts
   const toggleErrorToast = () => setIsError(!isError);
   const toggleSuccessToast = () => setIsSuccess(!isSuccess);
-
-
 
   //NFT price
   const price = 0.035;
@@ -248,6 +251,17 @@ function App(props) {
     )
   }
 
+  const GoToDesktop = () => {
+    return (
+      <Container id="Go-To-Desktop">
+        <Row className='p-5 my-auto'>
+          <h1>Oooops! This is embarassing..</h1>
+          <span>Mint...kinda, sorta.. doesn't work on mobile. Meet me back on your laptop or computer please. I'm so excited to have you join the waste land!</span>
+        </Row>
+      </Container>
+    )
+  }
+
   //views
   const MintingComponent = () => {
     return (
@@ -319,6 +333,7 @@ function App(props) {
         backgroundColor: "#303952",
       }}>
         <GifComponent />
+        <GoToDesktop />
         <MintingComponent />
         <RoadMap />
         <TeamComponent />
